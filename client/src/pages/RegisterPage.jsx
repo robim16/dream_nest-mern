@@ -1,5 +1,7 @@
-import { useState } from 'react'
-import '../styles/RegisterPage.css'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import '../styles/Register.scss'
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -19,10 +21,45 @@ const RegisterPage = () => {
     })
   }
 
+  const [passwordMatch, setPasswordMatch] = useState(true)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setPasswordMatch(formData.password === formData.confirmPassword || formData.confirmPassword === "")
+  })
+  
+
+  const handleSubmit = async (e) => { 
+
+    e.preventDefault()
+
+    try {
+
+      const register_form = new FormData()
+
+      for (let key in formData) {
+        register_form.append(key, formData[key])
+      }
+
+      const response = await fetch('http://localhost:3001/auth/register', {  
+        // send the form data to the server to register the user 
+        method: 'POST',
+        body: register_form
+      })
+
+      if (response.ok) {
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log("Register failed: ", error.message);
+    }
+  }
+
   return (
     <div className='register'>
       <div className='register_content'>
-        <form className='register_content_form'>
+        <form className='register_content_form' onSubmit={handleSubmit}>
           <input
             placeholder='first name'
             name='firstName'
@@ -61,6 +98,11 @@ const RegisterPage = () => {
             required
             onChange={handleChange}
           />
+
+          {!passwordMatch && (
+            <p style={{ color: 'red' }}>Passwords do not match</p>
+          )}
+
           <input
             type="file"
             name='profileImage'
@@ -78,7 +120,7 @@ const RegisterPage = () => {
               alt="profile photo"
               style={{ maxWidth: "80px"}} />
           )}
-          <button type='submit'>REGISTER</button>
+          <button type='submit' disabled={!passwordMatch}>REGISTER</button>
         </form>
         <a href="/login">Already have an account? Log In Here</a>
       </div>
