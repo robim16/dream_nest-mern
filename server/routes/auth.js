@@ -55,4 +55,32 @@ router.post('/register', upload.single('profileImage'), async (req, res) => {
 });
 
 
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if(user) {
+            return res.status(400).json({message: 'User doesn´t exists'});
+        }
+
+        const isMatch = await bycrypt.compare(password, user.password);
+
+        if(!isMatch) {
+            return res.status(400).json({message: 'Invalid credentials'});
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        delete user.password;
+
+        res.status(200).json({token, user});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: "Login failed!", error: error.message});
+    }
+});
+
 module.exports = router;
