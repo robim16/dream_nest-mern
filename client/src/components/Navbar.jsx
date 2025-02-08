@@ -34,7 +34,7 @@ const Navbar = () => {
           )
         }
 
-        <button className='navbar_right_account'>
+        <button className='navbar_right_account' onClick={() => setDropdownMenu(!dropdownMenu)}>
           <Menu sx={{ color: variables.darkgrey }} />
           {
             !user ?
@@ -62,7 +62,10 @@ const Navbar = () => {
               <Link to="/logout">Property List</Link>
               <Link to="/logout">Reservation List</Link>
               <Link to="/logout">Become A Host</Link>
-              <Link to="/logout">Log Out</Link>
+
+              <Link to="/login" onClick={() => {
+                dispatch(setLogout())
+              }}>Log Out</Link>
             </div>
           )
         }
