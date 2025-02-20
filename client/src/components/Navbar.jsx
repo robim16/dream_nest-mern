@@ -1,15 +1,16 @@
-import { IconButton } from '@material-ui/core'
-import { Search, Person, Menu } from '@material-ui/icons'
-import variables from '../styles/variables'
+import { IconButton } from "@mui/material";
+import { Search, Person, Menu } from "@mui/icons-material";
+import variables from '../styles/variables.scss'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import '../styles/Navbar.css'
+import '../styles/Navbar.scss'
 import { Link } from 'react-router-dom'
 import { setLogout } from '../redux/state'
 
 const Navbar = () => {
+  
   const [ dropdownMenu, setDropdownMenu ] = useState(false)
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch()
   
   return (

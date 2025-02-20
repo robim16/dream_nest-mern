@@ -1,5 +1,5 @@
-import React, { use, useState } from 'react'
-import '../styles/LoginPage.css'
+import React, { useState } from 'react'
+import "../styles/Login.scss"
 import { setLogin } from '../redux/state'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
