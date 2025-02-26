@@ -7,6 +7,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { IoIosImages } from 'react-icons/io'
 import { useState } from 'react'
 import { BiTrash } from 'react-icons/bi'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const CreateListing = () => {
     const [category, setCategory] = useState('')
@@ -81,12 +83,57 @@ const CreateListing = () => {
         })
     }
 
+    const creatorId = useSelector((state) => state.user._id)
+
+    const navigate = useNavigate()
+
+    const handlePost = async (e) => {
+        e.preventDefault()
+
+        try {
+            const listingForm = new FormData()
+            listingForm.append("creator", creatorId)
+            listingForm.append("category", category);
+            listingForm.append("type", type);
+            listingForm.append("streetAddress", formLocation.streetAddress);
+            listingForm.append("aptSuite", formLocation.aptSuite);
+            listingForm.append("city", formLocation.city);
+            listingForm.append("province", formLocation.province);
+            listingForm.append("country", formLocation.country);
+            listingForm.append("guestCount", guestCount);
+            listingForm.append("bedroomCount", bedroomCount);
+            listingForm.append("bedCount", bedCount);
+            listingForm.append("bathroomCount", bathroomCount);
+            listingForm.append("amenities", amenities);
+            listingForm.append("title", formDescription.title);
+            listingForm.append("description", formDescription.description);
+            listingForm.append("highlight", formDescription.highlight);
+            listingForm.append("highlightDesc", formDescription.highlightDesc);
+            listingForm.append("price", formDescription.price);
+
+            photos.forEach((photo) => {
+                listingForm.append("listingPhotos", photo)
+            })
+
+            const response = await fetch("http://localhost:3001/properties/create",{
+                method: "POST",
+                body: listingForm
+            })
+
+            if (response.ok) {
+                navigate("/")
+            }
+        } catch (error) {
+            console.log("Publish listing failed", error.message);
+        }
+    }
+
     return (
         <>
             <Navbar />
             <div className="create-listing">
                 <h1>Publish Your Place</h1>
-                <form>
+                <form onSubmit={handlePost}>
                     <div className='create-listing_step1'>
                         <h2>Step 1: Tell us about your place</h2>
                         <hr />
@@ -251,8 +298,8 @@ const CreateListing = () => {
                         <h3>Tell guests what your place has to offer</h3>
                         <div className="amenities">
                             {facilities.map((item, index) => (
-                                <div className={`facility ${amenities.includes(item) ? "selected" : ""}`} key={index}
-                                    onClick={handleSelectAmenities(item)}>
+                                <div className={`facility ${amenities.includes(item.name) ? "selected" : ""}`} key={index}
+                                    onClick={handleSelectAmenities(item.name)}>
                                     <div className="facility_icon">
                                         {item.icon}
                                     </div>
@@ -327,6 +374,7 @@ const CreateListing = () => {
                                 value={formDescription.price} onChange={handleChangeDescription} />
                         </div>
                     </div>
+                    <button className='submit_btn' type='submit'>CREATE YOUR LISTING</button>
                 </form>
             </div>
         </>

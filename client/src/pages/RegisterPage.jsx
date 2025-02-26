@@ -104,6 +104,7 @@ const RegisterPage = () => {
           )}
 
           <input
+            id='image'
             type="file"
             name='profileImage'
             accept='image/*'
