@@ -83,6 +83,30 @@ router.get("/", async(req, res) => {
 })
 
 
+router.get("/search/:search", async (req, res) => {
+    const { search } = req.params
+
+    try {
+        let listings = []
+
+        if (search === "all") {
+            listings = await Listing.find().populate("creator")
+        }
+        else{
+            listings = await Listing.find({
+                $or: [
+                    { category: {$regex: search, $options: "i"}},
+                    { title: {$regex: search, $options: "i"}}
+                ]
+            }).populate("creator")
+        }
+
+        res.status(200).json(listings)
+    } catch (error) {
+        res.status(409).json({message: "Fail to fetch listing", error: err.message })
+    }
+})
+
 router.get("/:listingId", async(req, res) => {
     try {
         const { listingId } = req.params

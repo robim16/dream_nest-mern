@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { setReservationList } from "../redux/state"
 import ListingCard from "../components/ListingCard"
+import Footer from "../components/Footer"
 
 const ReservationList = () => {
     const [loading, setLoading] = useState(true) 
@@ -36,10 +37,12 @@ const ReservationList = () => {
             <Navbar />
             <h1 className="title-list">Your Reservation List</h1>
             <div className="list">
-                {reservationList?.map(({listingId, startDate, endDate, totalPrice, booking=true}) => (
-                    <ListingCard listingId={listingId._id} startDate={startDate}
+                {reservationList?.map(({listingId, hostId, startDate, endDate, totalPrice, booking=true}) => (
+                    <ListingCard listingId={listingId._id}
+                        creator={hostId._id}
+                        startDate={startDate}
                         endDate={endDate} totalPrice={totalPrice}
-                        listingPhotoPaths={listingPhotoPaths}
+                        listingPhotoPaths={listingId.listingPhotoPaths}
                         city={listingId.city}
                         country={listingId.country}
                         category={listingId.category}
@@ -47,6 +50,8 @@ const ReservationList = () => {
                         booking={booking}/>
                 ))}
             </div>
+
+            <Footer />
         </>
     )
 }
