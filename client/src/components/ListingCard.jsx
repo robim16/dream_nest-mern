@@ -56,7 +56,7 @@ const ListingCard = ({
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      })//agrega o elimina de favoritos
       const data = await response.json()
       dispatch(setWishList(data.wishList));
     }
