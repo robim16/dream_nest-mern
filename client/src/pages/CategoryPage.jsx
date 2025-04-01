@@ -55,8 +55,7 @@ const CategoryPage = () => {
                     price={price}
                     booking={booking}
                 />
-                )
-                )}
+                ))}
             </div>
             <Footer />
         </>

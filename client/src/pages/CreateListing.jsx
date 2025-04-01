@@ -18,11 +18,11 @@ const CreateListing = () => {
 
 
     const [formLocation, setFormLocation] = useState({
-        streetAddress: '',
-        appSuite: '',
-        city: '',
-        province: '',
-        country: ''
+        streetAddress: "",
+        aptSuite: "",
+        city: "",
+        province: "",
+        country: "",
     })
 
     const handleChangeLocation = (e) => {
