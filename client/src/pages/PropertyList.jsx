@@ -14,6 +14,8 @@ const PropertyList = () => {
   const propertyList = user?.propertyList
 
   const dispatch = useDispatch()
+
+  //propiedades creadas por el usuario
   const getPropertyList = async () => {
     try {
 

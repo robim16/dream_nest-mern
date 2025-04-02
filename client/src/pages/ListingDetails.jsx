@@ -17,6 +17,8 @@ const ListingDetails = () => {
   const { listingId } = useParams()
   const [listing, setListing] = useState(null)
 
+
+  //ver una propiedad por id (details)
   const getListingDetails = async () => {
     try {
       const response = await fetch(`http://localhost:3001/properties/${listingId}`, {
@@ -98,7 +100,7 @@ const ListingDetails = () => {
 
         <div className="photos">
           {listing.listingPhotoPaths?.map((item) => (
-            <img src={`http://localhost:3001/${item.replace("public", "")}`} alt="listing photo"></img>
+            <img src={`http://localhost:3001/${item.replace("public", "")}`} alt="listing photo" />
           ))}
         </div>
 
@@ -159,6 +161,7 @@ const ListingDetails = () => {
               <button className="button" type="submit" onClick={handleSubmit}>
                 BOOKING
               </button>
+              {/* crear reservación (booking) */}
             </div>
           </div>
         </div>

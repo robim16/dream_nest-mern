@@ -110,7 +110,7 @@ router.get("/search/:search", async (req, res) => {
 router.get("/:listingId", async(req, res) => {
     try {
         const { listingId } = req.params
-        const listing = await Listing.findById(listingId)
+        const listing = await Listing.findById(listingId).populate("creator")
         res.status(200).json(listing)
     } catch (error) {
         res.status(404).json({ message: "Listing can not found", error: error.message })
