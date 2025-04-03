@@ -27,12 +27,12 @@ router.patch("/:userId/:listingId", async (req, res) => {
         if (favoriteListing) {
             user.wishList = user.wishList.filter((item) => item._id.toString() !== listingId)
             await user.save()
-            res.status(200).json({ message: "Listing is removed from wish list", wishlist: user.wishList })
+            res.status(200).json({ message: "Listing is removed from wish list", wishList: user.wishList })
         }
         else{
             user.wishList.push(listing)
             await user.save()
-            res.status(200).json({ message: "Listing is added to wish list", wishlist: user.wishList })
+            res.status(200).json({ message: "Listing is added to wish list", wishList: user.wishList })
         }
     } catch (error) {
         console.log(error);

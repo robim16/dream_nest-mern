@@ -36,5 +36,5 @@ export const userSlice = createSlice({
     }
 });
 
-export const { setLogin, setLogout, setListings,setWishList, setTripList, setPropertyList, setReservationList } = userSlice.actions;
+export const { setLogin, setLogout, setListings, setWishList, setTripList, setPropertyList, setReservationList } = userSlice.actions;
 export default userSlice.reducer;

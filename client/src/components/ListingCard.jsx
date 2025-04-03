@@ -110,7 +110,8 @@ const ListingCard = ({
       <button className="favorite" onClick={(e) => {
         e.stopPropagation()
         patchWishList()
-      }} disabled={!user}>
+      }} 
+        disabled={!user}>
         {isLiked ? (
           <Favorite sx={{ color: "red" }} />
         ) : (
