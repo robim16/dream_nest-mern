@@ -45,7 +45,7 @@ const ListingCard = ({
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.user)
-  const wishList = user?.wishList || []
+  const wishList = user?.wishList || [] //accede al campo wishList del user(es seteado en el state durante el login)
 
   const isLiked = wishList?.find((item) => item?._id === listingId)
 

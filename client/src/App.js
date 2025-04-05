@@ -26,7 +26,7 @@ function App() {
         <Route path="/properties/search/:search" element={<SearchPage />} />  
         <Route path="/:userId/trips" element={<TripList />} />  
         <Route path="/:userId/wishList" element={<WishList />} />  
-        <Route path="/:userId/propertyList" element={<PropertyList />} />  
+        <Route path="/:userId/properties" element={<PropertyList />} />  
         <Route path="/:userId/reservations" element={<ReservationList />} />  
       </Routes>
       </BrowserRouter>
