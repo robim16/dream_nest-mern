@@ -44,10 +44,7 @@ router.get("/:userId/properties", async (req, res) => {
     try {
         const { userId } = req.params
 
-        console.log(userId)
-
-        const properties = await Booking.find({ creator: userId}).populate("creator")
-        console.log(properties)
+        const properties = await Listing.find({ creator: userId }).populate("creator")
         res.status(202).json(properties)
     } catch (error) {
         console.log(error);
