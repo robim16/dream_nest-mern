@@ -20,7 +20,7 @@ const Listings = () => {
       const response = await fetch(
         selectedCategory !== "All" ?
         `${process.env.REACT_APP_API_URL}/properties?category=${selectedCategory}` 
-        : "${process.env.REACT_APP_API_URL}/properties",
+        : `${process.env.REACT_APP_API_URL}/properties`,
         {
           method: "GET",
         }
