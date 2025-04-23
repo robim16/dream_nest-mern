@@ -17,7 +17,7 @@ const ReservationList = () => {
     //obtiene la lista de reservas del usuario (properties booking)
     const getReservationList = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/users/${userId}/reservations`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}/reservations`, {
                 method: "GET"
             })
 

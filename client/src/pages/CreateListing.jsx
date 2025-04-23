@@ -116,7 +116,7 @@ const CreateListing = () => {
                 listingForm.append("listingPhotos", photo)
             })
 
-            const response = await fetch("http://localhost:3001/properties/create", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/properties/create`, {
                 method: "POST",
                 body: listingForm
             })
